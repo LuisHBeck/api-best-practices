@@ -29,46 +29,24 @@ public class AdoptionController {
     @Autowired
     private AdoptionService adoptionService;
 
-    @Autowired
-    private List<AdoptionRequestValidator> requestValidators;
-
     @PostMapping
     @Transactional
     public ResponseEntity<String> request(@RequestBody @Valid Adoption adoption) {
-        requestValidators.forEach(v -> v.validate(adoption));
         adoptionService.request(adoption);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/aprovar")
+    @PutMapping("/approve")
     @Transactional
-    public ResponseEntity<String> aprovar(@RequestBody @Valid Adoption adocao) {
-        adocao.setStatus(StatusAdocao.APROVADO);
-        adoptionRepository.save(adocao);
-
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setFrom("adopet@email.com.br");
-        email.setTo(adocao.getTutor().getEmail());
-        email.setSubject("Adoção aprovada");
-        email.setText("Parabéns " +adocao.getTutor().getNome() +"!\n\nSua adoção do pet " +adocao.getPet().getNome() +", solicitada em " +adocao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) +", foi aprovada.\nFavor entrar em contato com o abrigo " +adocao.getPet().getAbrigo().getNome() +" para agendar a busca do seu pet.");
-        emailSender.send(email);
-
+    public ResponseEntity<String> approve(@RequestBody @Valid Adoption adoption) {
+        adoptionService.approve(adoption);
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/reprovar")
+    @PutMapping("/disapprove")
     @Transactional
-    public ResponseEntity<String> reprovar(@RequestBody @Valid Adoption adocao) {
-        adocao.setStatus(StatusAdocao.REPROVADO);
-        adoptionRepository.save(adocao);
-
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setFrom("adopet@email.com.br");
-        email.setTo(adocao.getTutor().getEmail());
-        email.setSubject("Adoção reprovada");
-        email.setText("Olá " +adocao.getTutor().getNome() +"!\n\nInfelizmente sua adoção do pet " +adocao.getPet().getNome() +", solicitada em " +adocao.getData().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")) +", foi reprovada pelo abrigo " +adocao.getPet().getAbrigo().getNome() +" com a seguinte justificativa: " +adocao.getJustificativaStatus());
-        emailSender.send(email);
-
+    public ResponseEntity<String> disapprove(@RequestBody @Valid Adoption adoption) {
+        adoptionService.disapprove(adoption);
         return ResponseEntity.ok().build();
     }
 
