@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "adocoes")
-public class Adocao {
+public class Adoption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class Adocao {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Adocao adocao = (Adocao) o;
+        Adoption adocao = (Adoption) o;
         return Objects.equals(id, adocao.id);
     }
 

@@ -51,7 +51,7 @@ public class Pet {
 
     @OneToOne(mappedBy = "pet")
     @JsonBackReference("adocao_pets")
-    private Adocao adocao;
+    private Adoption adocao;
 
     @Override
     public boolean equals(Object o) {
@@ -138,11 +138,11 @@ public class Pet {
         this.abrigo = abrigo;
     }
 
-    public Adocao getAdocao() {
+    public Adoption getAdocao() {
         return adocao;
     }
 
-    public void setAdocao(Adocao adocao) {
+    public void setAdocao(Adoption adocao) {
         this.adocao = adocao;
     }
 }
