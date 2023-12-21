@@ -20,7 +20,7 @@ public class AdoptionService {
     private AdoptionRepository adoptionRepository;
 
     @Autowired
-    private JavaMailSender emailSender;
+    private EmailService emailService;
 
     @Autowired
     private List<AdoptionRequestValidator> requestValidators;
@@ -33,7 +33,7 @@ public class AdoptionService {
         adoption.setStatus(StatusAdocao.AGUARDANDO_AVALIACAO);
         adoptionRepository.save(adoption);
 
-        sendMailMessage(adoption, "Adoption request", "!\n\nAn adoption application was filed today for the pet: ");
+        emailService.sendMailMessage(adoption, "Adoption request", "!\n\nAn adoption application was filed today for the pet: ");
     }
 
     @Transactional
@@ -41,7 +41,7 @@ public class AdoptionService {
         adoption.setStatus(StatusAdocao.APROVADO);
         adoptionRepository.save(adoption);
 
-        sendMailMessage(adoption, "Adoção aprovada", "!\n\nSua adoção do pet ");
+        emailService.sendMailMessage(adoption, "Adoção aprovada", "!\n\nSua adoção do pet ");
     }
 
     @Transactional
@@ -49,17 +49,6 @@ public class AdoptionService {
         adoption.setStatus(StatusAdocao.REPROVADO);
         adoptionRepository.save(adoption);
 
-        sendMailMessage(adoption, "Adoção reprovada", "!\n\nInfelizmente sua adoção do pet ");
-    }
-
-
-    // AUXILIARY FUNCTIONS
-    private void sendMailMessage(Adoption adoption, String subject, String message) {
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setFrom("adopet@gmail.com.br");
-        email.setTo(adoption.getPet().getAbrigo().getEmail());
-        email.setSubject(subject);
-        email.setText("Olá " +adoption.getPet().getAbrigo().getNome() + message + adoption.getPet().getNome() +". \nPlease rate for approval or disapproval.");
-        emailSender.send(email);
+        emailService.sendMailMessage(adoption, "Adoção reprovada", "!\n\nInfelizmente sua adoção do pet ");
     }
 }

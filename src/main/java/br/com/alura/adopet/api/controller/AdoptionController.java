@@ -24,9 +24,6 @@ public class AdoptionController {
     private AdoptionRepository adoptionRepository;
 
     @Autowired
-    private JavaMailSender emailSender;
-
-    @Autowired
     private AdoptionService adoptionService;
 
     @PostMapping
