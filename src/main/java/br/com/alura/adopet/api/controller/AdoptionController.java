@@ -1,6 +1,9 @@
 package br.com.alura.adopet.api.controller;
 
 import br.com.alura.adopet.api.domain.adoption.validators.request.AdoptionRequestValidator;
+import br.com.alura.adopet.api.dto.AdoptionApproveData;
+import br.com.alura.adopet.api.dto.AdoptionDisapprovalData;
+import br.com.alura.adopet.api.dto.AdoptionRequestData;
 import br.com.alura.adopet.api.model.Adoption;
 import br.com.alura.adopet.api.model.StatusAdocao;
 import br.com.alura.adopet.api.repository.AdoptionRepository;
@@ -25,24 +28,23 @@ public class AdoptionController {
 
     @Autowired
     private AdoptionService adoptionService;
-
     @PostMapping
     @Transactional
-    public ResponseEntity<String> request(@RequestBody @Valid Adoption adoption) {
+    public ResponseEntity<String> request(@RequestBody @Valid AdoptionRequestData adoption) {
         adoptionService.request(adoption);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/approve")
     @Transactional
-    public ResponseEntity<String> approve(@RequestBody @Valid Adoption adoption) {
+    public ResponseEntity<String> approve(@RequestBody @Valid AdoptionApproveData adoption) {
         adoptionService.approve(adoption);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/disapprove")
     @Transactional
-    public ResponseEntity<String> disapprove(@RequestBody @Valid Adoption adoption) {
+    public ResponseEntity<String> disapprove(@RequestBody @Valid AdoptionDisapprovalData adoption) {
         adoptionService.disapprove(adoption);
         return ResponseEntity.ok().build();
     }
