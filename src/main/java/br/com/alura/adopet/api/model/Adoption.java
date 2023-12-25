@@ -1,10 +1,6 @@
 package br.com.alura.adopet.api.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,7 +12,6 @@ import java.util.Objects;
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 @Getter
-@Setter
 public class Adoption {
 
     @Id
@@ -40,11 +35,27 @@ public class Adoption {
 
     private String statusJustification;
 
+    public Adoption(Tutor tutor, Pet pet, String reason) {
+        this.tutor = tutor;
+        this.pet = pet;
+        this.reason = reason;
+        this.status = StatusAdocao.AGUARDANDO_AVALIACAO;
+        this.date = LocalDateTime.now();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Adoption adoption = (Adoption) o;
         return Objects.equals(id, adoption.id);
+    }
+
+    public void approve() {
+        this.status = StatusAdocao.APROVADO;
+    }
+
+    public void disapprove() {
+        this.status = StatusAdocao.REPROVADO;
     }
 }

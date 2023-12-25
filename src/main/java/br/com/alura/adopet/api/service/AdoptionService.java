@@ -7,6 +7,8 @@ import br.com.alura.adopet.api.dto.AdoptionRequestData;
 import br.com.alura.adopet.api.model.Adoption;
 import br.com.alura.adopet.api.model.StatusAdocao;
 import br.com.alura.adopet.api.repository.AdoptionRepository;
+import br.com.alura.adopet.api.repository.PetRepository;
+import br.com.alura.adopet.api.repository.TutorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -23,6 +25,12 @@ public class AdoptionService {
     private AdoptionRepository adoptionRepository;
 
     @Autowired
+    private TutorRepository tutorRepository;
+
+    @Autowired
+    private PetRepository petRepository;
+
+    @Autowired
     private EmailService emailService;
 
     @Autowired
@@ -32,13 +40,10 @@ public class AdoptionService {
     public void request(AdoptionRequestData adoptionData) {
         requestValidators.forEach(v -> v.validate(adoptionData));
 
-        var adoption = new Adoption(null,
-                LocalDateTime.now(),
-                adoptionData.tutor(),
-                adoptionData.pet(),
-                adoptionData.reason(),
-                StatusAdocao.AGUARDANDO_AVALIACAO,
-                null);
+        var tutor = tutorRepository.getReferenceById(adoptionData.tutorId());
+        var pet = petRepository.getReferenceById(adoptionData.petId());
+
+        var adoption = new Adoption(tutor, pet, adoptionData.reason());
         adoptionRepository.save(adoption);
 
         emailService.sendMailMessage(adoption, "Adoption request", "!\n\nAn adoption application was filed today for the pet: ");
@@ -48,7 +53,7 @@ public class AdoptionService {
     public void approve(AdoptionApproveData adoptionApproveData) {
         var adoption = adoptionRepository.getReferenceById(adoptionApproveData.adoptionId());
 
-        adoption.setStatus(StatusAdocao.APROVADO);
+        adoption.approve();
         adoptionRepository.save(adoption);
 
         emailService.sendMailMessage(adoption, "Adoption approved", "!\n\nYour adoption has been approved!");
@@ -58,7 +63,7 @@ public class AdoptionService {
     public void disapprove(AdoptionDisapprovalData adoptionDisapprovalData) {
         var adoption = adoptionRepository.getReferenceById(adoptionDisapprovalData.adoptionId());
 
-        adoption.setStatus(StatusAdocao.REPROVADO);
+        adoption.disapprove();
         adoptionRepository.save(adoption);
 
         emailService.sendMailMessage(adoption, "Adoption disapproved", "!\n\nUnfortunately your adoption request has been disapproved!");

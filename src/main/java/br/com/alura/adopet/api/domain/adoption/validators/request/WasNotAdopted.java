@@ -15,7 +15,7 @@ public class WasNotAdopted implements AdoptionRequestValidator{
 
     @Override
     public void validate(AdoptionRequestData adoptionRequestData) {
-        var adoption = adoptionRepository.getReferenceById(adoptionRequestData.pet().getId());
+        var adoption = adoptionRepository.getReferenceById(adoptionRequestData.petId());
         if (adoption.getPet().getAdotado()) throw new ValidException("Dog already adopted!");
     }
 }
