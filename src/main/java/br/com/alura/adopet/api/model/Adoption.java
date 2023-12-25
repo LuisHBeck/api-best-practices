@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name = "adocoes")
+@Table(name = "adoptions")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
@@ -21,37 +21,30 @@ public class Adoption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "data")
-    private LocalDateTime data;
+    private LocalDateTime date;
 
-    @ManyToOne
-    @JsonBackReference("tutor_adocoes")
-    @JoinColumn(name = "tutor_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tutor_id", referencedColumnName = "id")
     private Tutor tutor;
 
-    @OneToOne
-    @JoinColumn(name = "pet_id")
-    @JsonManagedReference("adocao_pets")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pet_id", referencedColumnName = "id")
     private Pet pet;
 
-    @Column(name = "motivo")
-    private String motivo;
+    private String reason;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status")
     private StatusAdocao status;
 
-    @Column(name = "justificativa_status")
-    private String justificativaStatus;
+    private String statusJustification;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Adoption adocao = (Adoption) o;
-        return Objects.equals(id, adocao.id);
+        Adoption adoption = (Adoption) o;
+        return Objects.equals(id, adoption.id);
     }
 }
