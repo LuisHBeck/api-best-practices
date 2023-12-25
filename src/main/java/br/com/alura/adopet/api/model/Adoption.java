@@ -36,7 +36,7 @@ public class Adoption {
     @JoinColumn(name = "pet_id")
     @JsonManagedReference("adocao_pets")
     private Pet pet;
-    
+
     @Column(name = "motivo")
     private String motivo;
 
