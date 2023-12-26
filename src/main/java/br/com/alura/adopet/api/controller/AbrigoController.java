@@ -1,7 +1,7 @@
 package br.com.alura.adopet.api.controller;
 
 import br.com.alura.adopet.api.model.Abrigo;
-import br.com.alura.adopet.api.model.Pet;
+import br.com.alura.adopet.api.domain.pet.model.Pet;
 import br.com.alura.adopet.api.repository.AbrigoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;

@@ -1,6 +1,7 @@
-package br.com.alura.adopet.api.model;
+package br.com.alura.adopet.api.domain.pet.model;
 
 import br.com.alura.adopet.api.domain.adoption.model.Adoption;
+import br.com.alura.adopet.api.model.Abrigo;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -20,7 +21,7 @@ public class Pet {
     @Enumerated(EnumType.STRING)
     @NotNull
     @Column(name = "tipo")
-    private TipoPet tipo;
+    private PetType tipo;
 
     @NotBlank
     @Column(name = "nome")
@@ -75,11 +76,11 @@ public class Pet {
         this.id = id;
     }
 
-    public TipoPet getTipo() {
+    public PetType getTipo() {
         return tipo;
     }
 
-    public void setTipo(TipoPet tipo) {
+    public void setTipo(PetType tipo) {
         this.tipo = tipo;
     }
 

@@ -6,7 +6,7 @@ import br.com.alura.adopet.api.domain.adoption.dto.AdoptionDisapprovalData;
 import br.com.alura.adopet.api.domain.adoption.dto.AdoptionRequestData;
 import br.com.alura.adopet.api.domain.adoption.model.Adoption;
 import br.com.alura.adopet.api.domain.adoption.repository.AdoptionRepository;
-import br.com.alura.adopet.api.repository.PetRepository;
+import br.com.alura.adopet.api.domain.pet.repository.PetRepository;
 import br.com.alura.adopet.api.repository.TutorRepository;
 import br.com.alura.adopet.api.service.EmailService;
 import jakarta.transaction.Transactional;
