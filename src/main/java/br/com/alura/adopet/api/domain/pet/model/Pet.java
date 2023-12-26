@@ -2,149 +2,44 @@ package br.com.alura.adopet.api.domain.pet.model;
 
 import br.com.alura.adopet.api.domain.adoption.model.Adoption;
 import br.com.alura.adopet.api.model.Abrigo;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.util.Objects;
 
 @Entity
 @Table(name = "pets")
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+@Getter
+@Setter
 public class Pet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
-    @Column(name = "tipo")
-    private PetType tipo;
+    private PetType type;
 
-    @NotBlank
-    @Column(name = "nome")
-    private String nome;
+    private String name;
 
-    @NotBlank
-    @Column(name = "raca")
-    private String raca;
+    private String race;
 
-    @NotNull
-    @Column(name = "idade")
-    private Integer idade;
+    private Integer age;
 
-    @NotBlank
-    @Column(name = "cor")
-    private String cor;
+    private String color;
 
-    @NotNull
-    @Column(name = "peso")
-    private Float peso;
+    private Float weight;
 
-    @Column(name = "adotado")
-    private Boolean adotado;
+    private Boolean adopted;
 
-    @ManyToOne
-    @JsonBackReference("abrigo_pets")
-    @JoinColumn(name = "abrigo_id")
-    private Abrigo abrigo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shelter_id", referencedColumnName = "id")
+    private Abrigo shelter;
 
-    @OneToOne(mappedBy = "pet")
-    @JsonBackReference("adocao_pets")
-    private Adoption adocao;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Pet pet = (Pet) o;
-        return Objects.equals(id, pet.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public PetType getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(PetType tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getRaca() {
-        return raca;
-    }
-
-    public void setRaca(String raca) {
-        this.raca = raca;
-    }
-
-    public Integer getIdade() {
-        return idade;
-    }
-
-    public void setIdade(Integer idade) {
-        this.idade = idade;
-    }
-
-    public String getCor() {
-        return cor;
-    }
-
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
-
-    public Float getPeso() {
-        return peso;
-    }
-
-    public void setPeso(Float peso) {
-        this.peso = peso;
-    }
-
-    public Boolean getAdotado() {
-        return adotado;
-    }
-
-    public void setAdotado(Boolean adotado) {
-        this.adotado = adotado;
-    }
-
-    public Abrigo getAbrigo() {
-        return abrigo;
-    }
-
-    public void setAbrigo(Abrigo abrigo) {
-        this.abrigo = abrigo;
-    }
-
-    public Adoption getAdocao() {
-        return adocao;
-    }
-
-    public void setAdocao(Adoption adocao) {
-        this.adocao = adocao;
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "adoption_id", referencedColumnName = "id")
+    private Adoption adoption;
 }

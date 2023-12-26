@@ -63,8 +63,8 @@ public class AbrigoController {
         try {
             Long id = Long.parseLong(idOuNome);
             Abrigo abrigo = repository.getReferenceById(id);
-            pet.setAbrigo(abrigo);
-            pet.setAdotado(false);
+            pet.setShelter(abrigo);
+            pet.setAdopted(false);
             abrigo.getPets().add(pet);
             repository.save(abrigo);
             return ResponseEntity.ok().build();
@@ -73,8 +73,8 @@ public class AbrigoController {
         } catch (NumberFormatException nfe) {
             try {
                 Abrigo abrigo = repository.findByNome(idOuNome);
-                pet.setAbrigo(abrigo);
-                pet.setAdotado(false);
+                pet.setShelter(abrigo);
+                pet.setAdopted(false);
                 abrigo.getPets().add(pet);
                 repository.save(abrigo);
                 return ResponseEntity.ok().build();
