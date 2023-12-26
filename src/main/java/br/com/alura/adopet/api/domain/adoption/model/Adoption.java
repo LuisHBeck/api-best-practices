@@ -1,5 +1,8 @@
-package br.com.alura.adopet.api.model;
+package br.com.alura.adopet.api.domain.adoption.model;
 
+import br.com.alura.adopet.api.model.Pet;
+import br.com.alura.adopet.api.model.StatusAdocao;
+import br.com.alura.adopet.api.model.Tutor;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,23 +1,15 @@
 package br.com.alura.adopet.api.controller;
 
-import br.com.alura.adopet.api.domain.adoption.validators.request.AdoptionRequestValidator;
-import br.com.alura.adopet.api.dto.AdoptionApproveData;
-import br.com.alura.adopet.api.dto.AdoptionDisapprovalData;
-import br.com.alura.adopet.api.dto.AdoptionRequestData;
-import br.com.alura.adopet.api.model.Adoption;
-import br.com.alura.adopet.api.model.StatusAdocao;
-import br.com.alura.adopet.api.repository.AdoptionRepository;
-import br.com.alura.adopet.api.service.AdoptionService;
+import br.com.alura.adopet.api.domain.adoption.dto.AdoptionApproveData;
+import br.com.alura.adopet.api.domain.adoption.dto.AdoptionDisapprovalData;
+import br.com.alura.adopet.api.domain.adoption.dto.AdoptionRequestData;
+import br.com.alura.adopet.api.domain.adoption.repository.AdoptionRepository;
+import br.com.alura.adopet.api.domain.adoption.service.AdoptionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @RestController
 @RequestMapping("/adoptions")

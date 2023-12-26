@@ -1,6 +1,6 @@
 package br.com.alura.adopet.api.service;
 
-import br.com.alura.adopet.api.model.Adoption;
+import br.com.alura.adopet.api.domain.adoption.model.Adoption;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

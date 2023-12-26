@@ -1,21 +1,18 @@
-package br.com.alura.adopet.api.service;
+package br.com.alura.adopet.api.domain.adoption.service;
 
-import br.com.alura.adopet.api.domain.adoption.validators.request.AdoptionRequestValidator;
-import br.com.alura.adopet.api.dto.AdoptionApproveData;
-import br.com.alura.adopet.api.dto.AdoptionDisapprovalData;
-import br.com.alura.adopet.api.dto.AdoptionRequestData;
-import br.com.alura.adopet.api.model.Adoption;
-import br.com.alura.adopet.api.model.StatusAdocao;
-import br.com.alura.adopet.api.repository.AdoptionRepository;
+import br.com.alura.adopet.api.domain.adoption.service.validation.request.AdoptionRequestValidator;
+import br.com.alura.adopet.api.domain.adoption.dto.AdoptionApproveData;
+import br.com.alura.adopet.api.domain.adoption.dto.AdoptionDisapprovalData;
+import br.com.alura.adopet.api.domain.adoption.dto.AdoptionRequestData;
+import br.com.alura.adopet.api.domain.adoption.model.Adoption;
+import br.com.alura.adopet.api.domain.adoption.repository.AdoptionRepository;
 import br.com.alura.adopet.api.repository.PetRepository;
 import br.com.alura.adopet.api.repository.TutorRepository;
+import br.com.alura.adopet.api.service.EmailService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service

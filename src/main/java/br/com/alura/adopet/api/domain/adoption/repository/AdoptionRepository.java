@@ -1,6 +1,6 @@
-package br.com.alura.adopet.api.repository;
+package br.com.alura.adopet.api.domain.adoption.repository;
 
-import br.com.alura.adopet.api.model.Adoption;
+import br.com.alura.adopet.api.domain.adoption.model.Adoption;
 import br.com.alura.adopet.api.model.StatusAdocao;
 import org.springframework.data.jpa.repository.JpaRepository;
 

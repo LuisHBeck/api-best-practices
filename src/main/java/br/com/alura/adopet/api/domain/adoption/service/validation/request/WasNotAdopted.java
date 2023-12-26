@@ -1,9 +1,8 @@
-package br.com.alura.adopet.api.domain.adoption.validators.request;
+package br.com.alura.adopet.api.domain.adoption.service.validation.request;
 
-import br.com.alura.adopet.api.dto.AdoptionRequestData;
+import br.com.alura.adopet.api.domain.adoption.dto.AdoptionRequestData;
 import br.com.alura.adopet.api.exception.validation.ValidException;
-import br.com.alura.adopet.api.model.Adoption;
-import br.com.alura.adopet.api.repository.AdoptionRepository;
+import br.com.alura.adopet.api.domain.adoption.repository.AdoptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

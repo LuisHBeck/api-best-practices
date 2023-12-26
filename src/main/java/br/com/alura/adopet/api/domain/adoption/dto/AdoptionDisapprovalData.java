@@ -1,4 +1,4 @@
-package br.com.alura.adopet.api.dto;
+package br.com.alura.adopet.api.domain.adoption.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.validation.constraints.NotBlank;
