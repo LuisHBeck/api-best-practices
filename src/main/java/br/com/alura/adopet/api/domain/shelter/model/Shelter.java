@@ -28,7 +28,6 @@ public class Shelter {
 
     private String phone;
 
-    @Email
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
