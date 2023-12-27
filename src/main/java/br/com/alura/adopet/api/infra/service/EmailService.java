@@ -1,4 +1,4 @@
-package br.com.alura.adopet.api.service;
+package br.com.alura.adopet.api.infra.service;
 
 import br.com.alura.adopet.api.domain.adoption.model.Adoption;
 import org.springframework.beans.factory.annotation.Autowired;

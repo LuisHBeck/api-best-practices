@@ -1,4 +1,4 @@
-package br.com.alura.adopet.api.model;
+package br.com.alura.adopet.api.domain.tutor.model;
 
 import br.com.alura.adopet.api.domain.adoption.model.Adoption;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
