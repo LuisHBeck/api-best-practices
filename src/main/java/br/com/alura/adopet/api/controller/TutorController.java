@@ -1,7 +1,10 @@
 package br.com.alura.adopet.api.controller;
 
+import br.com.alura.adopet.api.domain.tutor.dto.TutorDetailingData;
+import br.com.alura.adopet.api.domain.tutor.dto.TutorRegistrationData;
 import br.com.alura.adopet.api.domain.tutor.model.Tutor;
 import br.com.alura.adopet.api.domain.tutor.repository.TutorRepository;
+import br.com.alura.adopet.api.domain.tutor.service.TutorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,31 +12,24 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/tutores")
+@RequestMapping("/tutors")
 public class TutorController {
 
     @Autowired
-    private TutorRepository repository;
+    private TutorService tutorService;
 
     @PostMapping
     @Transactional
-    public ResponseEntity<String> cadastrar(@RequestBody @Valid Tutor tutor) {
-        boolean telefoneJaCadastrado = repository.existsByTelefone(tutor.getTelefone());
-        boolean emailJaCadastrado = repository.existsByEmail(tutor.getEmail());
-
-        if (telefoneJaCadastrado || emailJaCadastrado) {
-            return ResponseEntity.badRequest().body("Dados já cadastrados para outro tutor!");
-        } else {
-            repository.save(tutor);
-            return ResponseEntity.ok().build();
-        }
+    public ResponseEntity register(@RequestBody @Valid TutorRegistrationData data) {
+        var tutor = tutorService.register(data);
+        return ResponseEntity.ok(tutor);
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<String> atualizar(@RequestBody @Valid Tutor tutor) {
-        repository.save(tutor);
-        return ResponseEntity.ok().build();
+    public ResponseEntity update(@PathVariable Long id, @RequestBody @Valid TutorRegistrationData data) {
+        var tutor = tutorService.update(id, data);
+        return ResponseEntity.ok(tutor);
     }
 
 }
