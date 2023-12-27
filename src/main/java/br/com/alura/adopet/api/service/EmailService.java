@@ -17,7 +17,7 @@ public class EmailService {
         email.setFrom("adopet@gmail.com.br");
         email.setTo(adoption.getPet().getShelter().getEmail());
         email.setSubject(subject);
-        email.setText("Olá " +adoption.getPet().getShelter().getNome() + message + adoption.getPet().getName() +". \nPlease rate for approval or disapproval.");
+        email.setText("Olá " +adoption.getPet().getShelter().getName() + message + adoption.getPet().getName() +". \nPlease rate for approval or disapproval.");
         emailSender.send(email);
     }
 }
