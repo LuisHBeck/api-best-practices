@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class NameAlreadyExists implements ShelterRegistrationValidator{
+public class ShelterPhoneAlreadyExists implements ShelterRegistrationValidator{
 
     @Autowired
     private ShelterRepository shelterRepository;
 
     @Override
     public void validate(ShelterRegistrationData data) {
-        var alreadyExists = shelterRepository.existsByName(data.name());
-        if(alreadyExists) throw new ValidException("A shelter with that name already exists!");
+        var alreadyExists = shelterRepository.existsByPhone(data.phone());
+        if(alreadyExists) throw new ValidException("A shelter with that phone already exists!");
     }
 }

@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EmailAlreadyExists implements TutorRegistrationValidator{
+public class TutorPhoneAlreadyExists implements TutorRegistrationValidator{
 
     @Autowired
     private TutorRepository tutorRepository;
 
+
     @Override
     public void validate(TutorRegistrationData data) {
-        var alreadyExists = tutorRepository.existsByEmail(data.email());
-        if(alreadyExists) throw new ValidException("Tutor with that email already exists!");
+        var alreadyExists = tutorRepository.existsByPhone(data.phone());
+        if(alreadyExists) throw new ValidException("Tutor with that phone already exists!");
     }
 }
